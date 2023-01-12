@@ -1,0 +1,9 @@
+[package]
+name = "embedded-sprites"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+embedded-graphics = "0.7.1"
+thiserror = "1.0.38"

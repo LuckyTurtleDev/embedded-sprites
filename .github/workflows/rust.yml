@@ -1,0 +1,35 @@
+name: Rust
+
+on:
+  push:
+  pull_request:
+  release:
+    types: [published]
+
+jobs:
+
+  test:
+    runs-on: ubuntu-latest    
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/git
+            ~/.cargo/registry
+            target
+          key: "${{runner.os}} Rust ${{steps.rust-toolchain.outputs.cachekey}}"
+      - run: cargo test --workspace --all-features
+        env:
+          RUST_BACKTRACE: 1
+
+  rustfmt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          components: rustfmt
+      - run: cargo fmt --all -- --check
