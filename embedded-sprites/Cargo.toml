@@ -5,5 +5,10 @@ edition = "2021"
 publish = false
 
 [dependencies]
+bitvec = { version = "1.0.1", default-features = false, features = ["atomic"] }
 embedded-graphics = "0.7.1"
+fixedbitset = { version = "0.4.2", default-features = false }
 thiserror = "1.0.38"
+
+[dev-dependencies]
+konst = "0.3.4"

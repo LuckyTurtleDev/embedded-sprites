@@ -25,6 +25,11 @@ pub struct PixelIter<'a, C: PixelColor> {
 impl<'a, C: PixelColor> Iterator for PixelIter<'a, C> {
 	type Item = Pixel<C>;
 	fn next(&mut self) -> Option<Self::Item> {
+		// allow also empty / shorter transparenty map
+		while self.next < self.sprite.image.transparenty.len() && self.sprite.image.transparenty[self.next] == true {
+			// simple skipt transparenty pixel
+			self.next += 1;
+		}
 		if self.next < self.sprite.image.colors.len() {
 			let color = self.sprite.image.colors[self.next];
 			let point = Point::new(

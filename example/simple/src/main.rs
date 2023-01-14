@@ -1,3 +1,4 @@
+use bitvec::{bitarr, prelude::*};
 use embedded_graphics::{geometry::Point, pixelcolor::Bgr565, prelude::Size, Drawable, Pixel};
 use embedded_graphics_simulator::{OutputSettingsBuilder, SimulatorDisplay, Window};
 use embedded_sprites::{image::Image, sprite::Sprite};
@@ -16,6 +17,7 @@ const IMAGE: Image<Color> = unwrap_ctx!(Image::new(
 		Color::new(255, 255, 255),
 		Color::new(255, 255, 255),
 	],
+	&bitarr![const 0,0,0,0,1,0],
 	3,
 	2
 ));
