@@ -1,7 +1,6 @@
 extern crate proc_macro;
 
-
-use image::{io::Reader as ImageReader, Pixel, RgbaImage, ImageOutputFormat};
+use image::{io::Reader as ImageReader, ImageOutputFormat, Pixel, RgbaImage};
 use proc_macro::TokenStream;
 
 #[derive(Debug)]
@@ -27,7 +26,7 @@ pub fn include_image(_item: TokenStream) -> TokenStream {
 			r: chanel.next().unwrap_or(&0).to_owned(),
 			g: chanel.next().unwrap_or(&0).to_owned(),
 			b: chanel.next().unwrap_or(&0).to_owned(),
-			a: chanel.next().map(|value| value == &0 ).unwrap_or(false),
+			a: chanel.next().map(|value| value == &0).unwrap_or(false),
 		};
 		colors.push(color)
 	}

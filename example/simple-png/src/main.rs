@@ -1,9 +1,8 @@
 use bitvec::{bitarr, prelude::*};
 use embedded_graphics::{geometry::Point, pixelcolor::Bgr565, prelude::Size, Drawable, Pixel};
 use embedded_graphics_simulator::{OutputSettingsBuilder, SimulatorDisplay, Window};
-use embedded_sprites::{image::Image, sprite::Sprite};
+use embedded_sprites::{image::Image, include_image, sprite::Sprite};
 use konst::result::unwrap_ctx;
-use embedded_sprites::include_image;
 
 type Color = Bgr565;
 
@@ -26,7 +25,7 @@ const IMAGE: Image<Color> = unwrap_ctx!(Image::new(
 const SPRITE: Sprite<Color> = Sprite::new(Point::new(15, 15), &IMAGE);
 
 fn main() {
-	println!("{}",include_image!());
+	println!("{}", include_image!());
 	let mut display = SimulatorDisplay::<Bgr565>::new(Size::new(128, 64));
 	Pixel(Point::new(0, 10), Bgr565::new(0, 255, 0)).draw(&mut display).unwrap();
 	SPRITE.draw(&mut display).unwrap();
