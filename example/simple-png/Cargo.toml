@@ -1,6 +1,6 @@
 [package]
 workspace = "../.."
-name = "simple"
+name = "simple-png"
 version = "0.1.0"
 edition = "2021"
 publish = false
