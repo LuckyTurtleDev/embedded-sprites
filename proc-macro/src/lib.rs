@@ -1,9 +1,8 @@
 extern crate proc_macro;
 
-use embedded_graphics::pixelcolor::RgbColor;
+use embedded_graphics::pixelcolor::{RgbColor, *};
 use image::{io::Reader as ImageReader, Pixel, RgbaImage};
 use proc_macro::TokenStream;
-use embedded_graphics::pixelcolor::*;
 
 #[proc_macro]
 pub fn include_image(_item: TokenStream) -> TokenStream {
@@ -19,7 +18,11 @@ pub fn include_image(_item: TokenStream) -> TokenStream {
 	for pixel in pixels {
 		let mut chanel = pixel.channels().iter();
 		// `Color::new()` does only cut bits; So create an Bgr888 and convert it to TargetColor
-		let color = Bgr888::new(chanel.next().unwrap_or(&0).to_owned(), chanel.next().unwrap_or(&0).to_owned(), chanel.next().unwrap_or(&0).to_owned());
+		let color = Bgr888::new(
+			chanel.next().unwrap_or(&0).to_owned(),
+			chanel.next().unwrap_or(&0).to_owned(),
+			chanel.next().unwrap_or(&0).to_owned(),
+		);
 		let a = chanel.next().map(|value| value == &0).unwrap_or(false);
 		colors.push(color.into());
 	}
