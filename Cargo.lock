@@ -217,7 +217,9 @@ dependencies = [
 name = "embedded-sprites-proc-macro"
 version = "0.1.0"
 dependencies = [
+ "embedded-graphics",
  "image 0.24.5",
+ "syn",
 ]
 
 [[package]]
