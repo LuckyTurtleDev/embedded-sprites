@@ -9,15 +9,15 @@ pub type TransprentyMap = BitArray<[usize; 1], LocalBits>;
 
 #[derive(Debug)]
 pub struct Image<'a, C: PixelColor> {
-	pub(crate) widht: u16,
+	pub(crate) width: u16,
 	pub(crate) transparenty: &'a TransprentyMap,
 	pub(crate) colors: &'a [C],
 }
 
 #[derive(Debug, Eq, PartialEq)]
 pub enum Dimension {
-	Widht,
-	Hight,
+	Width,
+	Height,
 }
 
 #[derive(Debug, Eq, PartialEq)]
@@ -29,8 +29,8 @@ impl Display for Error {
 	fn fmt(&self, f: &mut Formatter) -> fmt::Result {
 		match self {
 			Self::WrongPixelLength(dimension) => match dimension {
-				Dimension::Widht => write!(f, "ength of `colors` is is not divisible by `widht`"),
-				Dimension::Hight => write!(f, "`colors.len()/widht` does not macht provided `height`"),
+				Dimension::Width => write!(f, "length of `colors` is is not divisible by `width`"),
+				Dimension::Height => write!(f, "`colors.len()/width` does not match provided `height`"),
 			},
 		}
 	}
@@ -40,25 +40,25 @@ impl Error {
 	pub const fn panic(&self) -> ! {
 		match self {
 			Self::WrongPixelLength(dimension) => match dimension {
-				Dimension::Widht => panic!("Error creating image:	length of `colors` is is not divisible by `widht`"),
-				Dimension::Hight => panic!("Error creating image:	`colors.len()/widht` does not macht provided `height`"),
+				Dimension::Width => panic!("Error creating image:	length of `colors` is is not divisible by `width`"),
+				Dimension::Height => panic!("Error creating image:	`colors.len()/width` does not match provided `height`"),
 			},
 		}
 	}
 }
 
 impl<'a, C: PixelColor> Image<'a, C> {
-	pub const fn new(colors: &'a [C], transparenty: &'a BitArray, widht: u16, height: u16) -> Result<Self, Error> {
-		if colors.len() % widht as usize != 0 {
-			return Err(Error::WrongPixelLength(Dimension::Widht));
+	pub const fn new(colors: &'a [C], transparenty: &'a BitArray, width: u16, height: u16) -> Result<Self, Error> {
+		if colors.len() % width as usize != 0 {
+			return Err(Error::WrongPixelLength(Dimension::Width));
 		};
-		if colors.len() / widht as usize != height as usize {
-			return Err(Error::WrongPixelLength(Dimension::Hight));
+		if colors.len() / width as usize != height as usize {
+			return Err(Error::WrongPixelLength(Dimension::Height));
 		};
 		Ok(Image {
 			colors,
 			transparenty,
-			widht,
+			width,
 		})
 	}
 }
@@ -93,14 +93,14 @@ mod tests {
 	fn create_image_wrong_widht() {
 		assert_eq!(
 			Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,0], 4, 2).unwrap_err(),
-			Error::WrongPixelLength(Dimension::Widht)
+			Error::WrongPixelLength(Dimension::Width)
 		);
 	}
 	#[test]
 	fn create_image_wrong_hight() {
 		assert_eq!(
 			Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,0], 3, 3).unwrap_err(),
-			Error::WrongPixelLength(Dimension::Hight)
+			Error::WrongPixelLength(Dimension::Height)
 		);
 	}
 }
