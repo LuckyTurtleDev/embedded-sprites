@@ -45,4 +45,4 @@ jobs:
       - uses: dtolnay/rust-toolchain@nightly
       - uses: msrd0/cargo-publish-action@v1
         with: 
-          packages: embedded-sprites-macros embedded-sprites
+          packages: embedded-sprites-proc-macro embedded-sprites
