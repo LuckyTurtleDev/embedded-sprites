@@ -1,2 +1,2 @@
 [workspace]
-members = ["embedded-sprites", "example/simple"]
+members = ["embedded-sprites", "proc-macro", "example/simple", "example/simple-png"]

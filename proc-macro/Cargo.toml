@@ -1,0 +1,14 @@
+[package]
+workspace = ".."
+name = "embedded-sprites-proc-macro"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[lib]
+proc-macro = true
+
+[dependencies]
+embedded-graphics = "0.7.1"
+image = "0.24.5"
+syn = "1.0"
