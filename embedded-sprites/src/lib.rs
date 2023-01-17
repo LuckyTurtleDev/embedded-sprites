@@ -2,4 +2,4 @@
 pub mod image;
 pub mod sprite;
 
-pub use embedded_sprites_proc_macro::include_image;
+pub use embedded_sprites_proc_macro::*;
