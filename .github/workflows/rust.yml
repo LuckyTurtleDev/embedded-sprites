@@ -35,3 +35,14 @@ jobs:
         with:
           components: rustfmt
       - run: cargo fmt --all -- --check
+
+  cargo_publish:
+    #if: ${{ github.event_name == 'release' }}
+    needs: [test]  # todo add doc2readme
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@nightly
+      - uses: msrd0/cargo-publish-action@v1
+        with: 
+          packages: embedded-sprites-macros embedded-sprites
