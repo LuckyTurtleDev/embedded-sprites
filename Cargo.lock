@@ -725,7 +725,6 @@ dependencies = [
  "embedded-graphics",
  "embedded-graphics-simulator",
  "embedded-sprites",
- "konst",
 ]
 
 [[package]]

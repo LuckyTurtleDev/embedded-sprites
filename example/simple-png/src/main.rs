@@ -2,7 +2,6 @@ use bitvec::{bitarr, prelude::*};
 use embedded_graphics::{geometry::Point, pixelcolor::Bgr565, prelude::Size, Drawable, Pixel};
 use embedded_graphics_simulator::{OutputSettingsBuilder, SimulatorDisplay, Window};
 use embedded_sprites::{image::Image, include_image, sprite::Sprite};
-use konst::result::unwrap_ctx;
 
 const CARGO_PKG_NAME: &str = env!("CARGO_PKG_NAME");
 

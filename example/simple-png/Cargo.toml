@@ -12,4 +12,3 @@ bitvec = { version = "1.0.1", default-features = false, features = ["atomic"] }
 embedded-graphics = "0.7.1"
 embedded-graphics-simulator = "0.4.0"
 embedded-sprites = {version = "0.1.0", path = "../../embedded-sprites"}
-konst = "0.3.4"

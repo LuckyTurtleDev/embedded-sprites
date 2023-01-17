@@ -1,4 +1,4 @@
-use embedded_graphics::pixelcolor::*;
+use embedded_graphics::pixelcolor::{Bgr888, RgbColor as _};
 use image::{io::Reader as ImageReader, Pixel, RgbaImage};
 use proc_macro::TokenStream;
 use proc_macro2::TokenStream as TokenStream2;
@@ -23,9 +23,9 @@ fn expand(
 		expr => return Err(syn::Error::new(expr.span(), "Expected path to image")),
 	};
 	let image = ImageReader::open(path.value())
-		.map_err(|err| syn::Error::new(path.span(), "Failed to open image"))?
+		.map_err(|err| syn::Error::new(path.span(), format!("Failed to open image: {err}")))?
 		.decode()
-		.map_err(|err| syn::Error::new(path.span(), "Failed to decode image"))?;
+		.map_err(|err| syn::Error::new(path.span(), format!("Failed to decode image: {err}")))?;
 
 	// convert input image to vec of colors
 	let image: RgbaImage = image.into_rgba8();
