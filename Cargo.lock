@@ -219,6 +219,8 @@ version = "0.1.0"
 dependencies = [
  "embedded-graphics",
  "image 0.24.5",
+ "proc-macro2",
+ "quote",
  "syn",
 ]
 
@@ -723,7 +725,6 @@ dependencies = [
  "embedded-graphics",
  "embedded-graphics-simulator",
  "embedded-sprites",
- "konst",
 ]
 
 [[package]]
