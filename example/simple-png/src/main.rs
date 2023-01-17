@@ -1,12 +1,13 @@
 use bitvec::{bitarr, prelude::*};
 use embedded_graphics::{geometry::Point, pixelcolor::Bgr565, prelude::Size, Drawable, Pixel};
 use embedded_graphics_simulator::{OutputSettingsBuilder, SimulatorDisplay, Window};
-use embedded_sprites::{image::Image, include_image_bgr565, sprite::Sprite};
+use embedded_sprites::{image::Image, include_image, sprite::Sprite};
 use konst::result::unwrap_ctx;
 
 const CARGO_PKG_NAME: &str = env!("CARGO_PKG_NAME");
 
-const IMAGE: Image<Bgr565> = unwrap_ctx!(include_image_bgr565!());
+#[include_image]
+const IMAGE: Image<Bgr565> = "img/grass.png";
 
 const SPRITE: Sprite<Bgr565> = Sprite::new(Point::new(15, 15), &IMAGE);
 
