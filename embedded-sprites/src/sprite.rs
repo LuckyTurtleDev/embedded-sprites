@@ -33,8 +33,8 @@ impl<'a, C: PixelColor> Iterator for PixelIter<'a, C> {
 		if self.next < self.sprite.image.colors.len() {
 			let color = self.sprite.image.colors[self.next];
 			let point = Point::new(
-				(self.next % self.sprite.image.widht as usize) as i32 + self.sprite.offset.x,
-				(self.next / self.sprite.image.widht as usize) as i32 + self.sprite.offset.y,
+				(self.next % self.sprite.image.width as usize) as i32 + self.sprite.offset.x,
+				(self.next / self.sprite.image.width as usize) as i32 + self.sprite.offset.y,
 			);
 			self.next += 1;
 			return Some(Pixel(point, color));

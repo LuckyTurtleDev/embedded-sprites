@@ -3,6 +3,7 @@ use image::{io::Reader as ImageReader, Pixel, RgbaImage};
 use proc_macro::TokenStream;
 use proc_macro2::TokenStream as TokenStream2;
 use quote::quote;
+use std::path::PathBuf;
 use syn::{parse_macro_input, spanned::Spanned as _, Expr, ExprLit, ItemConst, Lit};
 
 fn expand(
@@ -18,14 +19,23 @@ fn expand(
 		semi_token,
 	}: ItemConst,
 ) -> syn::Result<TokenStream2> {
-	let path = match expr.as_ref() {
+	let path_lit = match expr.as_ref() {
 		Expr::Lit(ExprLit { lit: Lit::Str(path), .. }) => path,
 		expr => return Err(syn::Error::new(expr.span(), "Expected path to image")),
 	};
-	let image = ImageReader::open(path.value())
-		.map_err(|err| syn::Error::new(path.span(), format!("Failed to open image: {err}")))?
+	let path: PathBuf = path_lit
+		.value()
+		.parse()
+		.map_err(|err| syn::Error::new(path_lit.span(), format!("Invalid path: {err}")))?;
+	let image = ImageReader::open(&path)
+		.map_err(|err| syn::Error::new(path_lit.span(), format!("Failed to open image: {err}")))?
 		.decode()
-		.map_err(|err| syn::Error::new(path.span(), format!("Failed to decode image: {err}")))?;
+		.map_err(|err| syn::Error::new(path_lit.span(), format!("Failed to decode image: {err}")))?;
+	let path = path
+		.canonicalize()
+		.ok()
+		.and_then(|path| path.to_str().map(String::from))
+		.unwrap_or_else(|| path_lit.value());
 
 	// convert input image to vec of colors
 	let image: RgbaImage = image.into_rgba8();
@@ -62,6 +72,10 @@ fn expand(
 	let height = image.height() as u16;
 	let output = quote! {
 		#(#attrs)* #vis #const_token #ident #colon_token #ty #eq_token {
+			// include the bytes so that the compiler knows to recompile when the
+			// image file changes
+			const _: &[u8] = ::core::include_bytes!(#path);
+
 			const COLOR_ARRAY: &[#color_ty] = &#color_array;
 			match ::embedded_sprites::image::Image::<'static, #color_ty>::new(
 				&COLOR_ARRAY, &#tmap_array, #width, #height
