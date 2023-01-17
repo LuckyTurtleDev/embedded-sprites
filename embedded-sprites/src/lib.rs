@@ -16,6 +16,7 @@ pub mod private {
 		type Color = C;
 	}
 
+	// Stolen from https://docs.rs/embedded-graphics-core/0.3.2/src/embedded_graphics_core/pixelcolor/conversion.rs.html#3-6
 	pub const fn convert_channel(value: u8, from_max: u8, to_max: u8) -> u8 {
 		((value as u16 * to_max as u16 + from_max as u16 / 2) / from_max as u16) as u8
 	}
