@@ -17,7 +17,7 @@ const IMAGE: Image<Color> = unwrap_ctx!(Image::new(
 		Color::new(255, 255, 255),
 		Color::new(255, 255, 255),
 	],
-	&bitarr![const 0,0,0,0,1,0],
+	&[0b00001000],
 	3,
 	2
 ));

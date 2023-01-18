@@ -205,7 +205,6 @@ dependencies = [
 name = "embedded-sprites"
 version = "0.1.0"
 dependencies = [
- "bitvec",
  "embedded-graphics",
  "embedded-sprites-proc-macro",
  "fixedbitset",

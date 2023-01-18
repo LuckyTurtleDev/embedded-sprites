@@ -1,16 +1,13 @@
-use bitvec::{order::LocalBits, prelude::BitArray};
 use core::{
 	fmt,
 	fmt::{Debug, Display, Formatter},
 };
 use embedded_graphics::pixelcolor::PixelColor;
 
-pub type TransprentyMap = BitArray<[usize; 1], LocalBits>;
-
 #[derive(Debug)]
 pub struct Image<'a, C: PixelColor> {
 	pub(crate) width: u16,
-	pub(crate) transparenty: &'a TransprentyMap,
+	pub(crate) transparenty: &'a [u8],
 	pub(crate) colors: &'a [C],
 }
 
@@ -48,7 +45,7 @@ impl Error {
 }
 
 impl<'a, C: PixelColor> Image<'a, C> {
-	pub const fn new(colors: &'a [C], transparenty: &'a BitArray, width: u16, height: u16) -> Result<Self, Error> {
+	pub const fn new(colors: &'a [C], transparenty: &'a [u8], width: u16, height: u16) -> Result<Self, Error> {
 		if colors.len() % width as usize != 0 {
 			return Err(Error::WrongPixelLength(Dimension::Width));
 		};
