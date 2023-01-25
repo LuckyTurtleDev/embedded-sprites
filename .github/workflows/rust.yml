@@ -54,3 +54,5 @@ jobs:
       - uses: msrd0/cargo-publish-action@v1
         with: 
           packages: embedded-sprites-proc-macro embedded-sprites
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CARGO_REGISTRY_TOKEN }}
