@@ -60,10 +60,36 @@ impl<'a, C: PixelColor> Image<'a, C> {
 	}
 }
 
+///create a transparenty array, to be used at image
+///length need not match the image length, missing data will be interpretet as not transparent
+///```
+/// let transparency = transparency![0,0,1,0]
+/// ```
+///third pixel ist transparent, rest is not transparent
+#[macro_export]
+macro_rules! transparency {
+    ($($x:expr),*) => {{
+        const N: usize = [$($x),*].len();
+        let mut t = [0u8; N / 8 + if N % 8 > 0 { 1 } else { 0 }];
+        let mut i = 0;
+        let mut j = 7;
+        $(
+            t[i] |= ($x & 1 ) << j;
+            #[allow(unused_assignments)]
+            if j == 0 {
+                j = 7;
+                i += 1;
+            } else {
+                j -= 1;
+            }
+        )*
+        t
+    }};
+}
+
 #[cfg(test)]
 mod tests {
 	use super::{Dimension, Error, Image};
-	use bitvec::{bitarr, prelude::*};
 	use embedded_graphics::pixelcolor::Bgr565;
 	use konst::result::unwrap_ctx;
 
@@ -81,15 +107,15 @@ mod tests {
 	#[test]
 	fn create_const_image() {
 		#[allow(dead_code)]
-		const IMAGE1: Image<Color> = unwrap_ctx!(Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,1,0,0], 3, 2));
+		const IMAGE1: Image<Color> = unwrap_ctx!(Image::new(&IMAGE_DATA, &transparency![0, 0, 0, 1, 0, 0], 3, 2));
 		#[allow(dead_code)]
-		const IMAGE2: Image<Color> = unwrap_ctx!(Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,0], 3, 2));
+		const IMAGE2: Image<Color> = unwrap_ctx!(Image::new(&IMAGE_DATA, &transparency![0, 0, 0, 0], 3, 2));
 		//todo: check if iterator of image is identical if I put them inside a sprite
 	}
 	#[test]
 	fn create_image_wrong_widht() {
 		assert_eq!(
-			Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,0], 4, 2).unwrap_err(),
+			Image::new(&IMAGE_DATA, &transparency![0, 0, 0, 0], 4, 2).unwrap_err(),
 			Error::WrongPixelLength(Dimension::Width)
 		);
 	}

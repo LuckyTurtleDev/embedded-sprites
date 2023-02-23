@@ -41,7 +41,8 @@ fn expand(
 	let image: RgbaImage = image.into_rgba8();
 	let pixels = image.pixels();
 	let mut colors: Vec<Bgr888> = Vec::new();
-	for pixel in pixels {
+	let mut transparency = quote!();
+	for (i, pixel) in pixels.into_iter().enumerate() {
 		let mut chanel = pixel.channels().iter();
 		// `Color::new()` only cuts bits; so we create a Bgr888 and convert it to
 		// our target color type
@@ -51,11 +52,16 @@ fn expand(
 			chanel.next().unwrap_or(&0).to_owned(),
 		);
 		let a = chanel.next().map(|value| value == &0).unwrap_or(false);
+		if i == 0 {
+			transparency = quote!(#transparency, #a as u8);
+		} else {
+			transparency = quote!(#a as u8);
+		}
 		colors.push(color);
 	}
 
-	// contruct output
-	let tmap_array = quote!(bitarr![const 0,0,]);
+	// contruct output;
+	let tmap_array = quote!(embedded_sprites::transparency!(#transparency));
 	let color_ty = quote!(<#ty as ::embedded_sprites::private::Image>::Color);
 	let colors = colors.into_iter().map(|color| {
 		let r = color.r();
