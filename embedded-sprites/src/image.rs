@@ -122,7 +122,7 @@ mod tests {
 	#[test]
 	fn create_image_wrong_hight() {
 		assert_eq!(
-			Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,0], 3, 3).unwrap_err(),
+			Image::new(&IMAGE_DATA, &transparency![0, 0, 0, 0], 3, 3).unwrap_err(),
 			Error::WrongPixelLength(Dimension::Height)
 		);
 	}
