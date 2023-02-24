@@ -83,8 +83,9 @@ fn expand(
 			const _: &[u8] = ::core::include_bytes!(#path);
 
 			const COLOR_ARRAY: &[#color_ty] = &#color_array;
+			const TRANSPARENTY_MAP: &[u8] = &#tmap_array;
 			match ::embedded_sprites::image::Image::<'static, #color_ty>::new(
-				&COLOR_ARRAY, &#tmap_array, #width, #height
+				COLOR_ARRAY, TRANSPARENTY_MAP, #width, #height
 			) {
 				::core::result::Result::Ok(img) => img,
 				_ => panic!("Failed to construct image")
