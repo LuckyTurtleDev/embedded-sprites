@@ -69,23 +69,23 @@ impl<'a, C: PixelColor> Image<'a, C> {
 ///third pixel ist transparent, rest is not transparent
 #[macro_export]
 macro_rules! transparency {
-    ($($x:expr),*) => {{	//TODO: enter const here if inline const is stable https://github.com/rust-lang/rust/issues/76001
-        const N: usize = [$($x),*].len();
-        let mut t = [0u8; N / 8 + if N % 8 > 0 { 1 } else { 0 }];
-        let mut i = 0;
-        let mut j = 7;
-        $(
-            t[i] |= ($x & 1 ) << j;
-            #[allow(unused_assignments)]
-            if j == 0 {
-                j = 7;
-                i += 1;
-            } else {
-                j -= 1;
-            }
-        )*
-        t
-    }};
+	($($x:expr),*) => {{	//TODO: enter const here if inline const is stable https://github.com/rust-lang/rust/issues/76001
+		const N: usize = [$($x),*].len();
+		let mut t = [0u8; N / 8 + if N % 8 > 0 { 1 } else { 0 }];
+		let mut i = 0;
+		let mut j = 7;
+		$(
+			t[i] |= ($x & 1 ) << j;
+			#[allow(unused_assignments)]
+			if j == 0 {
+				j = 7;
+				i += 1;
+			} else {
+				j -= 1;
+			}
+		)*
+		t
+	}};
 }
 
 #[cfg(test)]
