@@ -19,6 +19,7 @@ impl<'a, C: PixelColor> Sprite<'a, C> {
 pub struct PixelIter<'a, C: PixelColor> {
 	/// index of the next elment
 	next: usize,
+	tm_lengt: usize,
 	sprite: &'a Sprite<'a, C>,
 }
 
@@ -26,7 +27,9 @@ impl<'a, C: PixelColor> Iterator for PixelIter<'a, C> {
 	type Item = Pixel<C>;
 	fn next(&mut self) -> Option<Self::Item> {
 		// allow also empty / shorter transparenty map
-		while self.next < self.sprite.image.transparenty.len() && self.sprite.image.transparenty[self.next] == true {
+		while self.next < self.tm_lengt
+			&& (self.sprite.image.transparenty[self.next / 8] & (0b10000000 >> (self.next % 8))) != 0
+		{
 			// simple skipt transparenty pixel
 			self.next += 1;
 		}
@@ -51,6 +54,10 @@ impl<'a, C: PixelColor> Drawable for Sprite<'a, C> {
 	where
 		D: DrawTarget<Color = Self::Color>,
 	{
-		target.draw_iter(PixelIter { next: 0, sprite: self })
+		target.draw_iter(PixelIter {
+			next: 0,
+			tm_lengt: self.image.transparenty.len() * 8,
+			sprite: self,
+		})
 	}
 }

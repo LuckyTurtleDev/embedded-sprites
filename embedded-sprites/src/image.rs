@@ -1,16 +1,13 @@
-use bitvec::{order::LocalBits, prelude::BitArray};
 use core::{
 	fmt,
 	fmt::{Debug, Display, Formatter},
 };
 use embedded_graphics::pixelcolor::PixelColor;
 
-pub type TransprentyMap = BitArray<[usize; 1], LocalBits>;
-
 #[derive(Debug)]
 pub struct Image<'a, C: PixelColor> {
 	pub(crate) width: u16,
-	pub(crate) transparenty: &'a TransprentyMap,
+	pub(crate) transparenty: &'a [u8],
 	pub(crate) colors: &'a [C],
 }
 
@@ -48,7 +45,7 @@ impl Error {
 }
 
 impl<'a, C: PixelColor> Image<'a, C> {
-	pub const fn new(colors: &'a [C], transparenty: &'a BitArray, width: u16, height: u16) -> Result<Self, Error> {
+	pub const fn new(colors: &'a [C], transparenty: &'a [u8], width: u16, height: u16) -> Result<Self, Error> {
 		if colors.len() % width as usize != 0 {
 			return Err(Error::WrongPixelLength(Dimension::Width));
 		};
@@ -63,10 +60,38 @@ impl<'a, C: PixelColor> Image<'a, C> {
 	}
 }
 
+/// Create a transparenty map, to be used at image.
+/// Length need not match the image length, missing data will be interpretet as not transparent.
+/// ```
+/// use embedded_sprites::transparency;
+/// let transparency = transparency![0, 0, 1, 0];
+/// ```
+///third pixel ist transparent, rest is not transparent
+#[macro_export]
+macro_rules! transparency {
+	($($x:expr),*) => {{	//TODO: enter const here if inline const is stable https://github.com/rust-lang/rust/issues/76001
+		const N: usize = [$($x),*].len();
+		let mut t = [0u8; N / 8 + if N % 8 > 0 { 1 } else { 0 }];
+		let mut i = 0;
+		let mut j = 7;
+		$(
+			t[i] |= ($x & 1 ) << j;
+			#[allow(unused_assignments)]
+			if j == 0 {
+				j = 7;
+				i += 1;
+			} else {
+				j -= 1;
+			}
+		)*
+		t
+	}};
+}
+
 #[cfg(test)]
 mod tests {
 	use super::{Dimension, Error, Image};
-	use bitvec::{bitarr, prelude::*};
+	use crate::transparency;
 	use embedded_graphics::pixelcolor::Bgr565;
 	use konst::result::unwrap_ctx;
 
@@ -83,23 +108,26 @@ mod tests {
 
 	#[test]
 	fn create_const_image() {
+		const TRANSPARENCY1: &[u8] = &transparency![0, 0, 0, 1, 0, 0];
 		#[allow(dead_code)]
-		const IMAGE1: Image<Color> = unwrap_ctx!(Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,1,0,0], 3, 2));
+		const IMAGE1: Image<Color> = unwrap_ctx!(Image::new(&IMAGE_DATA, TRANSPARENCY1, 3, 2));
+
+		const TRANSPARENCY2: &[u8] = &transparency![0, 0, 0, 0];
 		#[allow(dead_code)]
-		const IMAGE2: Image<Color> = unwrap_ctx!(Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,0], 3, 2));
-		//todo: check if iterator of image is identical if I put them inside a sprite
+		const IMAGE2: Image<Color> = unwrap_ctx!(Image::new(&IMAGE_DATA, TRANSPARENCY2, 3, 2));
+		//TODO: check if iterator of image is identical if I put them inside a sprite
 	}
 	#[test]
 	fn create_image_wrong_widht() {
 		assert_eq!(
-			Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,0], 4, 2).unwrap_err(),
+			Image::new(&IMAGE_DATA, &transparency![0, 0, 0, 0], 4, 2).unwrap_err(),
 			Error::WrongPixelLength(Dimension::Width)
 		);
 	}
 	#[test]
 	fn create_image_wrong_hight() {
 		assert_eq!(
-			Image::new(&IMAGE_DATA, &bitarr![const 0,0,0,0], 3, 3).unwrap_err(),
+			Image::new(&IMAGE_DATA, &transparency![0, 0, 0, 0], 3, 3).unwrap_err(),
 			Error::WrongPixelLength(Dimension::Height)
 		);
 	}
