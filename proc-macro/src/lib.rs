@@ -28,9 +28,9 @@ fn expand(
 		.parse()
 		.map_err(|err| syn::Error::new(path_lit.span(), format!("Invalid path: {err}")))?;
 	let image = ImageReader::open(&path)
-		.map_err(|err| syn::Error::new(path_lit.span(), format!("Failed to open image: {err}")))?
+		.map_err(|err| syn::Error::new(path_lit.span(), format!("Failed to open image {path:?}: {err}")))?
 		.decode()
-		.map_err(|err| syn::Error::new(path_lit.span(), format!("Failed to decode image: {err}")))?;
+		.map_err(|err| syn::Error::new(path_lit.span(), format!("Failed to decode image {path:?}: {err}")))?;
 	let path = path
 		.canonicalize()
 		.ok()
@@ -97,6 +97,18 @@ fn expand(
 	Ok(output)
 }
 
+/// Utility macro to construct a const [`Image`](embedded_graphics::image::Image) at compile time from a image file.
+///
+/// Every image formats supported by the [image crate](https://crates.io/crates/image) can be used.
+/// The image will be automatically be converted to the requested pixelcolor.
+/// Current only rgb pixelcolors are supported.
+///
+/// ```ignore
+/// use embedded_sprites::{image::Image, include_image};
+/// use embedded_graphics::pixelcolor::Bgr565;
+/// #[include_image]
+/// const IMAGE: Image<Bgr565> = "img/grass.png";
+/// ```
 #[proc_macro_attribute]
 pub fn include_image(_attr: TokenStream, item: TokenStream) -> TokenStream {
 	expand(parse_macro_input!(item))

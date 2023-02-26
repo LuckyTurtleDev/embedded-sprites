@@ -2,6 +2,10 @@ use crate::image::Image;
 use core::fmt::Debug;
 use embedded_graphics::{geometry::Point, pixelcolor::PixelColor, prelude::DrawTarget, Drawable, Pixel};
 
+/// A [`Sprite`] given a [`Image`](crate::image::Image) a postion and make it draw able.
+///
+/// Since a [`Sprite`] does only store a reference to a [`Image`](crate::image::Image) its light.
+/// Multiple sprites can even use the same [`Image`](crate::image::Image).
 #[derive(Debug)]
 pub struct Sprite<'a, C: PixelColor> {
 	//postion of the top left pixel of the Sprite

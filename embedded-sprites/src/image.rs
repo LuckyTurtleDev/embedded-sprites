@@ -4,6 +4,10 @@ use core::{
 };
 use embedded_graphics::pixelcolor::PixelColor;
 
+/// Store image data.
+///
+/// Image can be constructed using the [`include_image`](crate::include_image) macro at compile time.
+/// To draw an image it must be put inside a [`Sprite`](crate::sprite::Sprite).
 #[derive(Debug)]
 pub struct Image<'a, C: PixelColor> {
 	pub(crate) width: u16,
@@ -33,7 +37,8 @@ impl Display for Error {
 	}
 }
 impl Error {
-	/// for konst::result::unwrap_ctx; see https://docs.rs/konst/0.3.4/konst/result/macro.unwrap_ctx.html
+	#[doc(hidden)]
+	// const unwrap; see https://docs.rs/konst/0.3.4/konst/result/macro.unwrap_ctx.html
 	pub const fn panic(&self) -> ! {
 		match self {
 			Self::WrongPixelLength(dimension) => match dimension {
@@ -45,6 +50,33 @@ impl Error {
 }
 
 impl<'a, C: PixelColor> Image<'a, C> {
+	/// create a new [Image] from a array of [PixelColor]s, a transparenty map.
+	///
+	/// Return an error, if the length of `colors` does not fit to the widht and height.
+	/// You can unwrap the error in a const contexts,
+	/// by using the [konst](https://crates.io/crates/konst) crate see [`konst::result::unwrap_ctx`](https://docs.rs/konst/0.3.4/konst/result/macro.unwrap_ctx.html) for more informations.
+	///
+	/// `transparency` can be created by using the [`transparency!`](crate::transparency) macro.
+	/// It's length doesn’t have to match the image length, missing data will be interpreted as fully opaque.
+	///
+	/// ```
+	/// use embedded_graphics::pixelcolor::Bgr565;
+	/// use embedded_sprites::{image::Image, transparency};
+	/// use konst::result::unwrap_ctx;
+	///
+	/// type Color = Bgr565;
+	/// const IMAGE_DATA: [Color; 6] = [
+	/// 	Color::new(255, 0, 0),
+	/// 	Color::new(0, 255, 0),
+	/// 	Color::new(0, 0, 255),
+	/// 	Color::new(255, 0, 255),
+	/// 	Color::new(255, 255, 255),
+	/// 	Color::new(255, 255, 255),
+	/// ];
+	/// const IMAGE: Image<Color> =
+	/// 	unwrap_ctx!(Image::new(&IMAGE_DATA, &transparency![0, 0, 0, 1, 0], 3, 2));
+	/// ```
+
 	pub const fn new(colors: &'a [C], transparenty: &'a [u8], width: u16, height: u16) -> Result<Self, Error> {
 		if colors.len() % width as usize != 0 {
 			return Err(Error::WrongPixelLength(Dimension::Width));

@@ -13,3 +13,4 @@ thiserror = "1.0.38"
 
 [dev-dependencies]
 konst = "0.3.4"
+embedded-graphics-simulator = "0.4.0"
