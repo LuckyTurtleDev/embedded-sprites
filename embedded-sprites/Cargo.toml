@@ -4,6 +4,8 @@ name = "embedded-sprites"
 version = "0.1.0"
 keywords = ["graphics", "embedded-graphics", "embedded", "no_std", "no-std"]
 description = "Embedded no std graphics libary for bundling image at compile time"
+include = ["/src/**/*.rs", "/build.rs", "/LICENSE", "/README.md", "grass.png"]
+license = "MIT OR Apache-2.0"
 edition = "2021"
 
 [dependencies]

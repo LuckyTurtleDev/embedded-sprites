@@ -3,6 +3,7 @@ workspace = ".."
 name = "embedded-sprites-proc-macro"
 version = "0.1.0"
 description = "Private implementation detail of embedded-sprites"
+include = ["/src/**/*.rs", "/build.rs", "/LICENSE", "/README.md"]
 edition = "2021"
 
 [lib]
