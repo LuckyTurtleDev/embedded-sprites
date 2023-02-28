@@ -2,8 +2,9 @@
 workspace = ".."
 name = "embedded-sprites"
 version = "0.1.0"
+keywords = ["graphics", "embedded-graphics", "embedded", "no_std", "no-std"]
+description = "Embedded no std graphics libary for bundling image at compile time"
 edition = "2021"
-publish = false
 
 [dependencies]
 embedded-graphics = "0.7.1"
