@@ -191,7 +191,7 @@ dependencies = [
 
 [[package]]
 name = "embedded-sprites"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "embedded-graphics",
  "embedded-graphics-simulator",
