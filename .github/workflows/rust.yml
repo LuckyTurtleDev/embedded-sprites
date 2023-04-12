@@ -14,6 +14,7 @@ jobs:
       - name: Checkout repository and submodules
         uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@stable
+        id: "rust-toolchain"
       - name: Install SDL2 #needed by display simulator
         run: sudo apt-get update && sudo apt-get install -y libsdl2-dev
       - uses: actions/cache@v3
@@ -22,7 +23,7 @@ jobs:
             ~/.cargo/git
             ~/.cargo/registry
             target
-          key: "${{runner.os}} Rust ${{steps.rust-toolchain.outputs.cachekey}}"
+          key: "${{runner.os}} Rust ${{steps.rust-toolchain.outputs.cachekey}} Lock ${{hashFiles('Cargo.lock')}}"
       - run: cargo test --workspace --all-features
         env:
           RUST_BACKTRACE: 1
