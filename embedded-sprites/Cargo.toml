@@ -1,7 +1,7 @@
 [package]
 workspace = ".."
 name = "embedded-sprites"
-version = "0.1.1"
+version = "0.1.2"
 keywords = ["graphics", "embedded-graphics", "embedded", "no_std", "no-std"]
 description = "Embedded no std graphics libary for bundling image at compile time"
 include = ["/src/**/*.rs", "/build.rs", "/LICENSE*", "/README.md", "grass.png"]
@@ -10,7 +10,7 @@ edition = "2021"
 
 [dependencies]
 embedded-graphics = "0.7.1"
-embedded-sprites-proc-macro  = {version = "0.1.0", path = "../proc-macro"}
+embedded-sprites-proc-macro  = {version = "0.1.1", path = "../proc-macro"}
 
 [dev-dependencies]
 konst = "0.3.4"

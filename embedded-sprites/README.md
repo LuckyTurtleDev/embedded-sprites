@@ -26,12 +26,12 @@ SPRITE2.draw(&mut display).unwrap();
 ```
 
 
- [__cargo_doc2readme_dependencies_info]: ggGkYW0BYXSEGyDwipHVMb5RGxgd3zutc1TvG3ARKV4UcQ1NGyM1aXabIPYbYXKEG3UKlWy8vTi0G4kv9VENJTIRG2q_VeeZzLcpG8a3zQR9jj8BYWSBg3BlbWJlZGRlZC1zcHJpdGVzZTAuMS4xcGVtYmVkZGVkX3Nwcml0ZXM
+ [__cargo_doc2readme_dependencies_info]: ggGkYW0BYXSEGyDwipHVMb5RGxgd3zutc1TvG3ARKV4UcQ1NGyM1aXabIPYbYXKEG3UKlWy8vTi0G4kv9VENJTIRG2q_VeeZzLcpG8a3zQR9jj8BYWSBg3BlbWJlZGRlZC1zcHJpdGVzZTAuMS4ycGVtYmVkZGVkX3Nwcml0ZXM
  [__link0]: https://crates.io/crates/embedded-graphics
- [__link1]: https://docs.rs/embedded-sprites/0.1.1/embedded_sprites/?search=include_image
- [__link2]: https://docs.rs/embedded-sprites/0.1.1/embedded_sprites/?search=image::Image
+ [__link1]: https://docs.rs/embedded-sprites/0.1.2/embedded_sprites/?search=include_image
+ [__link2]: https://docs.rs/embedded-sprites/0.1.2/embedded_sprites/?search=image::Image
  [__link3]: https://crates.io/crates/image
- [__link4]: https://docs.rs/embedded-sprites/0.1.1/embedded_sprites/?search=image::Image
- [__link5]: https://docs.rs/embedded-sprites/0.1.1/embedded_sprites/?search=sprite::Sprite
- [__link6]: https://docs.rs/embedded-sprites/0.1.1/embedded_sprites/?search=image::Image
- [__link7]: https://docs.rs/embedded-sprites/0.1.1/embedded_sprites/?search=sprite::Sprite
+ [__link4]: https://docs.rs/embedded-sprites/0.1.2/embedded_sprites/?search=image::Image
+ [__link5]: https://docs.rs/embedded-sprites/0.1.2/embedded_sprites/?search=sprite::Sprite
+ [__link6]: https://docs.rs/embedded-sprites/0.1.2/embedded_sprites/?search=image::Image
+ [__link7]: https://docs.rs/embedded-sprites/0.1.2/embedded_sprites/?search=sprite::Sprite
