@@ -11,7 +11,7 @@ edition = "2021"
 proc-macro = true
 
 [dependencies]
-embedded-graphics = "0.7.1"
+embedded-graphics = "0.8.0"
 image = "0.24.5"
 quote = "1.0"
 proc-macro2 = "1.0"
