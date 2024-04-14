@@ -270,7 +270,7 @@ dependencies = [
 
 [[package]]
 name = "embedded-sprites"
-version = "0.1.2"
+version = "0.2.0"
 dependencies = [
  "embedded-graphics",
  "embedded-graphics-simulator",
@@ -280,7 +280,7 @@ dependencies = [
 
 [[package]]
 name = "embedded-sprites-proc-macro"
-version = "0.1.1"
+version = "0.2.0"
 dependencies = [
  "embedded-graphics",
  "image 0.25.1",

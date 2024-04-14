@@ -9,5 +9,5 @@ repository = "https://github.com/LuckyTurtleDev/embedded-sprites"
 [workspace.dependencies]
 embedded-graphics = "0.8.1"
 embedded-graphics-simulator = "0.6.0"
-embedded-sprites = {version = "0.1.0", path = "embedded-sprites"}
-embedded-sprites-proc-macro  = {version = "0.1.1", path = "proc-macro"}
+embedded-sprites = {version = "0.2.0", path = "embedded-sprites"}
+embedded-sprites-proc-macro  = {version = "0.2.0", path = "proc-macro"}
