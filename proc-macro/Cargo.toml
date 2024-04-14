@@ -4,8 +4,9 @@ name = "embedded-sprites-proc-macro"
 version = "0.1.1"
 description = "Private implementation detail of embedded-sprites"
 include = ["/src/**/*.rs", "/build.rs", "/LICENSE*", "/README.md"]
-license = "MIT OR Apache-2.0"
-edition = "2021"
+license.workspace = true
+edition.workspace = true
+repository.workspace = true
 
 [lib]
 proc-macro = true

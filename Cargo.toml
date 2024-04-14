@@ -1,6 +1,11 @@
 [workspace]
 members = ["embedded-sprites", "proc-macro", "example/simple", "example/simple-png"]
 
+[workspace.package]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/LuckyTurtleDev/embedded-sprites"
+
 [workspace.dependencies]
 embedded-graphics = "0.8.1"
 embedded-graphics-simulator = "0.6.0"

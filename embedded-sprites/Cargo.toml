@@ -5,8 +5,9 @@ version = "0.1.2"
 keywords = ["graphics", "embedded-graphics", "embedded", "no_std", "no-std"]
 description = "Embedded no std graphics libary for bundling image at compile time"
 include = ["/src/**/*.rs", "/build.rs", "/LICENSE*", "/README.md", "grass.png"]
-license = "MIT OR Apache-2.0"
-edition = "2021"
+license.workspace = true
+edition.workspace = true
+repository.workspace = true
 
 [dependencies]
 embedded-graphics = { workspace = true }
