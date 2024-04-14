@@ -9,7 +9,7 @@ The [`include_image`][__link1] macro can be usede to create a [`Image`][__link2]
 use embedded_graphics::pixelcolor::Bgr565;
 use embedded_sprites::{image::Image, include_image};
 #[include_image]
-const IMAGE: Image<Bgr565> = "grass.png";
+const IMAGE: Image<Bgr565> = "embedded-sprites/grass.png";
 ```
 
 To draw a [`Image`][__link4] it must be put inside a [`Sprite`][__link5]. You can use the same [`Image`][__link6] inside multiple [`Sprite`][__link7]s;
@@ -27,7 +27,7 @@ SPRITE2.draw(&mut display).unwrap();
 
 
 
- [__cargo_doc2readme_dependencies_info]: ggGkYW0BYXSEG_W_Gn_kaocAGwCcVPfenh7eGy6gYLEwyIe4G6-xw_FwcbpjYXKEG3UKlWy8vTi0G4kv9VENJTIRG2q_VeeZzLcpG8a3zQR9jj8BYWSBg3BlbWJlZGRlZC1zcHJpdGVzZTAuMS4ycGVtYmVkZGVkX3Nwcml0ZXM
+ [__cargo_doc2readme_dependencies_info]: ggGkYW0BYXSEG_W_Gn_kaocAGwCcVPfenh7eGy6gYLEwyIe4G6-xw_FwcbpjYXKEG2bKupsgXWQSG_FMixi0V6PhG0j0rm2VAtREG60mSfOHrii4YWSBg3BlbWJlZGRlZC1zcHJpdGVzZTAuMS4ycGVtYmVkZGVkX3Nwcml0ZXM
  [__link0]: https://crates.io/crates/embedded-graphics
  [__link1]: https://docs.rs/embedded-sprites/0.1.2/embedded_sprites/?search=include_image
  [__link2]: https://docs.rs/embedded-sprites/0.1.2/embedded_sprites/?search=image::Image
