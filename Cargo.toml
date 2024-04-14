@@ -1,2 +1,8 @@
 [workspace]
 members = ["embedded-sprites", "proc-macro", "example/simple", "example/simple-png"]
+
+[workspace.dependencies]
+embedded-graphics = "0.8.1"
+embedded-graphics-simulator = "0.6.0"
+embedded-sprites = {version = "0.1.0", path = "embedded-sprites"}
+embedded-sprites-proc-macro  = {version = "0.1.1", path = "proc-macro"}

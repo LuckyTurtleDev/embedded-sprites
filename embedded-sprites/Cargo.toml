@@ -9,9 +9,9 @@ license = "MIT OR Apache-2.0"
 edition = "2021"
 
 [dependencies]
-embedded-graphics = "0.7.1"
-embedded-sprites-proc-macro  = {version = "0.1.1", path = "../proc-macro"}
+embedded-graphics = { workspace = true }
+embedded-sprites-proc-macro  = { workspace = true }
 
 [dev-dependencies]
 konst = "0.3.4"
-embedded-graphics-simulator = "0.4.0"
+embedded-graphics-simulator = { workspace = true }
