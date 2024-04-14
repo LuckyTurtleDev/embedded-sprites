@@ -10,7 +10,7 @@
 //! use embedded_graphics::pixelcolor::Bgr565;
 //! use embedded_sprites::{image::Image, include_image};
 //! #[include_image]
-//! const IMAGE: Image<Bgr565> = "grass.png";
+//! const IMAGE: Image<Bgr565> = "embedded-sprites/grass.png";
 //! ```
 //!
 //! To draw a [`Image`](crate::image::Image) it must be put inside a [`Sprite`](crate::sprite::Sprite).
@@ -23,7 +23,7 @@
 //! use embedded_sprites::sprite::Sprite;
 //!
 //! # #[include_image]
-//! # const IMAGE: Image<Bgr565> = "grass.png";
+//! # const IMAGE: Image<Bgr565> = "embedded-sprites/grass.png";
 //! const SPRITE1: Sprite<Bgr565> = Sprite::new(Point::new(0, 0), &IMAGE);
 //! const SPRITE2: Sprite<Bgr565> = Sprite::new(Point::new(32, 32), &IMAGE);
 //! # let mut display = SimulatorDisplay::<Bgr565>::new(Size::new(128, 64));
